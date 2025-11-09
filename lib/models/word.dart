@@ -1,36 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Word {
+class Goal {
   final String id;
-  final String word;
-  final String meaning;
+  final String goal;
+  final String description;
   final DateTime timestamp;
-  final String brand;
+  final String category;
 
-  Word({
+  Goal({
     required this.id,
-    required this.word,
-    required this.meaning,
+    required this.goal,
+    required this.description,
     required this.timestamp,
-    required this.brand,
+    required this.category,
   });
 
-  factory Word.fromMap(Map<String, dynamic> map, String id) {
-    return Word(
+  factory Goal.fromMap(Map<String, dynamic> map, String id) {
+    return Goal(
       id: id,
-      word: map['word'] ?? '',
-      meaning: map['meaning'] ?? '',
+      goal: map['goal'] ?? '',
+      description: map['description'] ?? '',
       timestamp: (map['timestamp'] as Timestamp).toDate(),
-      brand: map['brand'] ?? '',
+      category: map['category'] ?? '',
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'word': word,
-      'meaning': meaning,
+      'goal': goal,
+      'description': description,
       'timestamp': timestamp,
-      'brand': brand,
+      'category': category,
     };
   }
 }

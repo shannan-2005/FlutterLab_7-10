@@ -17,16 +17,16 @@ void main() async {
     // Handle Firebase initialization error gracefully
     debugPrint('Firebase initialization error: $e');
   }
-  runApp(const AlfaApp());
+  runApp(const GoalTrackerApp());
 }
 
-class AlfaApp extends StatelessWidget {
-  const AlfaApp({super.key});
+class GoalTrackerApp extends StatelessWidget {
+  const GoalTrackerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Alfa Dictionary',
+      title: 'Goal Tracker App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -35,9 +35,9 @@ class AlfaApp extends StatelessWidget {
       routes: {
         '/': (context) => const AuthWrapper(),
         '/home': (context) => const HomeScreen(),
-        '/add': (context) => const AddWordScreen(),
+        '/add': (context) => const AddGoalScreen(),
         '/search': (context) => const SearchScreen(),
-        '/edit': (context) => const EditWordScreen(),
+        '/edit': (context) => const EditGoalScreen(),
       },
     );
   }
@@ -80,8 +80,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alfa Dictionary'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Goal Tracker App'),
+        backgroundColor: const Color(0xFF87CEEB),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -99,24 +99,24 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to Alfa Dictionary',
+              'Welcome to Goal Tracker App',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/add'),
-              child: const Text('Exercise 1: Add Word'),
+              child: const Text('Exercise 1: Add Goal'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/search'),
-              child: const Text('Exercise 2: Search Words'),
+              child: const Text('Exercise 2: Search Goals'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/edit'),
-              child: const Text('Exercise 3: Edit Words'),
+              child: const Text('Exercise 3: Edit Goals'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(

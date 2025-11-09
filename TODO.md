@@ -1,14 +1,11 @@
-# TODO List for Alfa Dictionary App Exercises
+# Goal Tracker App Retheming TODO
 
-- [x] Update pubspec.yaml: Add cloud_firestore, firebase_core, shared_preferences dependencies
-- [x] Modify lib/main.dart: Change app name to "Alfa", create home screen with navigation to 4 exercise screens
-- [x] Create lib/services/firestore_service.dart: Handle Firestore operations (CRUD for words and users)
-- [x] Create lib/models/word.dart: Model for dictionary word
-- [x] Create lib/models/user.dart: Model for user
-- [x] Create lib/screens/add_word_screen.dart: Exercise 1 - Form to add word, save to Firestore
-- [x] Create lib/screens/search_screen.dart: Exercise 2 - Search bar, query Firestore, display list with StreamBuilder
-- [x] Create lib/screens/edit_word_screen.dart: Exercise 3 - List words, tap to edit, update Firestore, show SnackBar
-- [x] Create lib/screens/login_screen.dart: Exercise 4 - Login form, check against Firestore users, navigate to home, use SharedPreferences for session
-- [x] Update README.md: Add setup instructions and exercise descriptions
-- [x] Run flutter pub get
-- [x] Test each screen (manual verification)
+- [x] Rename model: Change Flight to Goal in lib/models/word.dart, update fields 'flight' → 'goal', 'details' → 'description', 'airline' → 'category'.
+- [x] Update firestore_service.dart: Change collection 'flights' → 'goals', field names, category 'SkyAir' → 'Personal'.
+- [x] Update lib/screens/login_screen.dart: App bar title to 'Login - Goal Tracker', change app bar color to soft blue.
+- [x] Update lib/screens/add_word_screen.dart: App bar title to 'Add Goal', labels 'Flight Number' → 'Goal Title', 'Flight Details' → 'Goal Description', messages to 'Goal added', button 'Add Flight' → 'Add Goal', app bar color.
+- [x] Update lib/screens/search_screen.dart: App bar title to 'Search Goals', label 'Search for a flight' → 'Search for a goal', 'No flights found' → 'No goals found', app bar color, add goal icon to list.
+- [x] Update lib/screens/edit_word_screen.dart: Already themed, verify consistency.
+- [x] Update lib/main.dart: App title 'Flight Reservation App' → 'Goal Tracker App', home screen title 'Goal Tracker App', welcome text 'Welcome to Goal Tracker App', button texts to goal exercises, app bar color.
+- [x] Update test/widget_test.dart: Change FlightReservationApp to GoalTrackerApp, update test strings to goal theme.
+- [ ] Run app to verify UI changes and functionality.

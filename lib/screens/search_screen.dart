@@ -17,8 +17,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Words - Alfa'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Search Goals'),
+        backgroundColor: const Color(0xFF87CEEB),
       ),
       body: Column(
         children: [
@@ -27,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: _searchController,
               decoration: const InputDecoration(
-                labelText: 'Search for a word',
+                labelText: 'Search for a goal',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search),
               ),
@@ -37,8 +37,8 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Expanded(
-            child: StreamBuilder<List<Word>>(
-              stream: _firestoreService.searchWords(_searchController.text),
+            child: StreamBuilder<List<Goal>>(
+              stream: _firestoreService.searchGoals(_searchController.text),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -46,17 +46,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
-                final words = snapshot.data ?? [];
-                if (words.isEmpty) {
-                  return const Center(child: Text('No words found'));
+                final goals = snapshot.data ?? [];
+                if (goals.isEmpty) {
+                  return const Center(child: Text('No goals found'));
                 }
                 return ListView.builder(
-                  itemCount: words.length,
+                  itemCount: goals.length,
                   itemBuilder: (context, index) {
-                    final word = words[index];
+                    final goal = goals[index];
                     return ListTile(
-                      title: Text(word.word),
-                      subtitle: Text(word.meaning),
+                      leading: const Icon(Icons.flag, color: Colors.greenAccent),
+                      title: Text(goal.goal),
+                      subtitle: Text(goal.description),
                     );
                   },
                 );

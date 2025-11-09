@@ -6,43 +6,43 @@ class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Collection references
-  CollectionReference get _wordsCollection => _firestore.collection('dictionary_words');
+  CollectionReference get _goalsCollection => _firestore.collection('goals');
   CollectionReference get _usersCollection => _firestore.collection('users');
 
-  // Add a new word
-  Future<void> addWord(String word, String meaning) async {
-    await _wordsCollection.add({
-      'word': word,
-      'meaning': meaning,
+  // Add a new goal
+  Future<void> addGoal(String goal, String description) async {
+    await _goalsCollection.add({
+      'goal': goal,
+      'description': description,
       'timestamp': FieldValue.serverTimestamp(),
-      'brand': 'Alfa',
+      'category': 'Personal',
     });
   }
 
-  // Get all words as stream
-  Stream<List<Word>> getWords() {
-    return _wordsCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => Word.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+  // Get all goals as stream
+  Stream<List<Goal>> getGoals() {
+    return _goalsCollection.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Goal.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     });
   }
 
-  // Search words by query
-  Stream<List<Word>> searchWords(String query) {
+  // Search goals by query
+  Stream<List<Goal>> searchGoals(String query) {
     if (query.isEmpty) {
-      return getWords();
+      return getGoals();
     }
-    return _wordsCollection
-        .where('word', isGreaterThanOrEqualTo: query)
-        .where('word', isLessThan: query + 'z')
+    return _goalsCollection
+        .where('goal', isGreaterThanOrEqualTo: query)
+        .where('goal', isLessThan: query + 'z')
         .snapshots()
         .map((snapshot) {
-          return snapshot.docs.map((doc) => Word.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+          return snapshot.docs.map((doc) => Goal.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
         });
   }
 
-  // Update word meaning
-  Future<void> updateWord(String id, String newMeaning) async {
-    await _wordsCollection.doc(id).update({'meaning': newMeaning});
+  // Update goal description
+  Future<void> updateGoal(String id, String newDescription) async {
+    await _goalsCollection.doc(id).update({'description': newDescription});
   }
 
   // Get user by email and password

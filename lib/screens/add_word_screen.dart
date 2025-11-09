@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import '../services/firestore_service.dart';
 
-class AddWordScreen extends StatefulWidget {
-  const AddWordScreen({super.key});
+class AddGoalScreen extends StatefulWidget {
+  const AddGoalScreen({super.key});
 
   @override
-  State<AddWordScreen> createState() => _AddWordScreenState();
+  State<AddGoalScreen> createState() => _AddGoalScreenState();
 }
 
-class _AddWordScreenState extends State<AddWordScreen> {
+class _AddGoalScreenState extends State<AddGoalScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _wordController = TextEditingController();
-  final _meaningController = TextEditingController();
+  final _goalController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final FirestoreService _firestoreService = FirestoreService();
 
-  Future<void> _addWord() async {
+  Future<void> _addGoal() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _firestoreService.addWord(_wordController.text, _meaningController.text);
+        await _firestoreService.addGoal(_goalController.text, _descriptionController.text);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Word added successfully!')),
+          const SnackBar(content: Text('Goal added successfully!')),
         );
-        _wordController.clear();
-        _meaningController.clear();
+        _goalController.clear();
+        _descriptionController.clear();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error adding word: $e')),
+          SnackBar(content: Text('Error adding goal: $e')),
         );
       }
     }
@@ -35,8 +35,8 @@ class _AddWordScreenState extends State<AddWordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Word - Alfa'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Add Goal'),
+        backgroundColor: const Color(0xFF87CEEB),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,37 +45,37 @@ class _AddWordScreenState extends State<AddWordScreen> {
           child: Column(
             children: [
               TextFormField(
-                controller: _wordController,
+                controller: _goalController,
                 decoration: const InputDecoration(
-                  labelText: 'Word',
+                  labelText: 'Goal Title',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a word';
+                    return 'Please enter a goal title';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _meaningController,
+                controller: _descriptionController,
                 decoration: const InputDecoration(
-                  labelText: 'Meaning',
+                  labelText: 'Goal Description',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter the meaning';
+                    return 'Please enter the goal description';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: _addWord,
-                child: const Text('Add Word'),
+                onPressed: _addGoal,
+                child: const Text('Add Goal'),
               ),
             ],
           ),

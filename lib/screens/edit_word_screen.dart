@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import '../services/firestore_service.dart';
 import '../models/word.dart';
 
-class EditWordScreen extends StatefulWidget {
-  const EditWordScreen({super.key});
+class EditGoalScreen extends StatefulWidget {
+  const EditGoalScreen({super.key});
 
   @override
-  State<EditWordScreen> createState() => _EditWordScreenState();
+  State<EditGoalScreen> createState() => _EditGoalScreenState();
 }
 
-class _EditWordScreenState extends State<EditWordScreen> {
+class _EditGoalScreenState extends State<EditGoalScreen> {
   final FirestoreService _firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Words - Alfa'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Edit Goals'),
+        backgroundColor: const Color(0xFF87CEEB),
       ),
-      body: StreamBuilder<List<Word>>(
-        stream: _firestoreService.getWords(),
+      body: StreamBuilder<List<Goal>>(
+        stream: _firestoreService.getGoals(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -28,18 +28,19 @@ class _EditWordScreenState extends State<EditWordScreen> {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
-          final words = snapshot.data ?? [];
-          if (words.isEmpty) {
-            return const Center(child: Text('No words to edit'));
+          final goals = snapshot.data ?? [];
+          if (goals.isEmpty) {
+            return const Center(child: Text('No goals to edit'));
           }
           return ListView.builder(
-            itemCount: words.length,
+            itemCount: goals.length,
             itemBuilder: (context, index) {
-              final word = words[index];
+              final goal = goals[index];
               return ListTile(
-                title: Text(word.word),
-                subtitle: Text(word.meaning),
-                onTap: () => _showEditDialog(word),
+                leading: const Icon(Icons.flag, color: Colors.greenAccent),
+                title: Text(goal.goal),
+                subtitle: Text(goal.description),
+                onTap: () => _showEditDialog(goal),
               );
             },
           );
@@ -48,16 +49,16 @@ class _EditWordScreenState extends State<EditWordScreen> {
     );
   }
 
-  void _showEditDialog(Word word) {
-    final TextEditingController _meaningController = TextEditingController(text: word.meaning);
+  void _showEditDialog(Goal goal) {
+    final TextEditingController _descriptionController = TextEditingController(text: goal.description);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Edit Meaning for "${word.word}"'),
+        title: Text('Edit Description for "${goal.goal}"'),
         content: TextField(
-          controller: _meaningController,
-          decoration: const InputDecoration(labelText: 'New Meaning'),
+          controller: _descriptionController,
+          decoration: const InputDecoration(labelText: 'New Description'),
           maxLines: 3,
         ),
         actions: [
@@ -68,14 +69,14 @@ class _EditWordScreenState extends State<EditWordScreen> {
           TextButton(
             onPressed: () async {
               try {
-                await _firestoreService.updateWord(word.id, _meaningController.text);
+                await _firestoreService.updateGoal(goal.id, _descriptionController.text);
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Word updated successfully!')),
+                  const SnackBar(content: Text('Goal updated successfully!')),
                 );
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error updating word: $e')),
+                  SnackBar(content: Text('Error updating goal: $e')),
                 );
               }
             },

@@ -44,8 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login - Alfa'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Login - Goal Tracker'),
+        backgroundColor: const Color(0xFF87CEEB),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -11,23 +11,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_application_5/main.dart';
 
 void main() {
-  testWidgets('Alfa Dictionary app smoke test', (WidgetTester tester) async {
+  testWidgets('Goal Tracker App smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const AlfaApp());
+    await tester.pumpWidget(const GoalTrackerApp());
 
     // Wait for Firebase initialization and auth check
     await tester.pumpAndSettle();
 
     // Verify that the app title is correct (in app bar)
-    expect(find.text('Alfa Dictionary'), findsOneWidget);
+    expect(find.text('Goal Tracker App'), findsOneWidget);
 
     // Verify that the welcome text is displayed
-    expect(find.text('Welcome to Alfa Dictionary'), findsOneWidget);
+    expect(find.text('Welcome to Goal Tracker App'), findsOneWidget);
 
     // Verify that exercise buttons are present
-    expect(find.text('Exercise 1: Add Word'), findsOneWidget);
-    expect(find.text('Exercise 2: Search Words'), findsOneWidget);
-    expect(find.text('Exercise 3: Edit Words'), findsOneWidget);
+    expect(find.text('Exercise 1: Add Goal'), findsOneWidget);
+    expect(find.text('Exercise 2: Search Goals'), findsOneWidget);
+    expect(find.text('Exercise 3: Edit Goals'), findsOneWidget);
     expect(find.text('Exercise 4: Login (Already logged in)'), findsOneWidget);
   });
 }
